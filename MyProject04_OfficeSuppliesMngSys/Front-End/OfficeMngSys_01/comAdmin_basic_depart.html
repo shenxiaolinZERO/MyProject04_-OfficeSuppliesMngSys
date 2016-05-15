@@ -10,18 +10,21 @@
 
     <ul id="myTab" class="nav nav-tabs">
         <li class="active">
-            <a href="#depart-info" data-toggle="tab">
-                查看部门
-            </a>
+            <a href="#depart-info" data-toggle="tab">部门管理</a>
         </li>
-        <li><a href="#addAssessor" data-toggle="tab">添加部门</a></li>
+        <li><a href="#addAssessor" data-toggle="tab">物品分类管理</a></li>
+        <li><a href="#addAssessor" data-toggle="tab">计量单位管理</a></li>
+        <li><a href="#addAssessor" data-toggle="tab">入库类型管理</a></li>
+        <li><a href="#addAssessor" data-toggle="tab">出库类型管理</a></li>
+        <li><a href="#addAssessor" data-toggle="tab">供应商类型管理</a></li>
     </ul>
 
         <!------------ 标签内容-------------------->
 
         <div id="myTabContent" class="tab-content">
             <!-- 查看部门-->
-            <table id="depart-info" class="display" cellspacing="0"  width="100%">
+            <div id="depart-info">
+            <table id="depart1-info" class="display" cellspacing="2"  width="100%">
                 <thead>
                 <tr>
                     <th>部门编号</th>
@@ -47,7 +50,7 @@
                 </tr>
                 </tbody>
             </table>
-
+            </div>
             <!-- 添加部门-->
             <div class="tab-pane fade" id="addAssessor">
                 <form class="form-horizontal" role="form">
@@ -84,7 +87,7 @@
       <script type="text/javascript">
         $(document).ready(function() {
             // DataTable
-            var table = $('#depart-info').dataTable();
+            var table = $('#depart1-info').dataTable();
         } );
       </script>
 </body>

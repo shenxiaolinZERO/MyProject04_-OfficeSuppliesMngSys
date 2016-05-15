@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <title>demo</title>
+
+    <style>
+        TD,INPUT{font-size:12px;}
+    </style>
+</head>
+
+<body bgcolor=EEEEEE>
+<form name="frm" action="about:结果页面" method=post >
+    <h4 align=center>demo</h4>
+
+    <table align="center" bordercolor=cccccc border=1  width=100% >
+        <tr>
+            <td width=500>
+            </td>
+            <td align=right>
+                <input type="button"  value="增加" class="bottom" onclick="addDetailProcess();">&nbsp;
+                <input type="button"  value="删除" class="bottom" onclick="delDetailProcess();">&nbsp;
+                <input type="button"  value="完成" class="bottom" onclick="submitProcess();">
+
+            </td>
+        </tr>
+    </table>
+    <div width=100% id=thedetailtableDIV>
+        <table align="center" bordercolor=cccccc border=1 width=100% >
+            <tr bgcolor=eeeeee id="trDetailTitles">
+                <td ><input type=checkbox onclick="selectallcheckbox(this)"></td>
+                <td >明细ID*</td>
+                <td >明细NAME</td>
+            </tr>
+            <tbody id="tbDetailUsed" >
+            <tr>
+                <td ><input type="checkbox" name="record_select" ></td>
+                <td ><input type="text" name="detail_id" value='' ></td>
+                <td ><input type="text" name="detail_name" value='' ></td>
+            </tr>
+
+            <tr height=0 ><td colspan=100 height=0 > 合计</td></tr>
+            </tbody>
+
+        </table>
+    </div>
+</form>
+
+<!--复制的内容-->
+<table id="tbDetailPrepare" style="display:none">
+    <tr>
+        <td ><input type="checkbox" name="record_select" ></td>
+        <td ><input type="text" name="detail_id" value='' ></td>
+        <td ><input type="text" name="detail_name" value='' ></td>
+    </tr>
+</table>
+
+
+<input name="theHistoryRecord" type=hidden value="">
+
+
+<script language=javascript>
+
+    window.onload = historyOncemore;
+    window.onbeforeunload = fixHistory;
+
+    function fixHistory()//记住历史
+    {
+        document.all("theHistoryRecord").value=document.all("thedetailtableDIV").innerHTML.replace(/\n/g,"");
+    }
+
+    function historyOncemore()//恢复历史
+    {
+        if (document.all("theHistoryRecord").value!="")
+        {document.all("thedetailtableDIV").innerHTML=document.all("theHistoryRecord").value;
+        }
+    }
+
+    function selectallcheckbox(obj)//全选或全不选
+    {
+        var tureorfalse=obj.checked;
+        var theDetail=tbDetailUsed.rows;
+        for(var i=0;i<theDetail.length-1;i++)
+        {
+            theDetail[i].all("record_select").checked=tureorfalse;
+        }
+    }
+
+
+    function addDetailProcess(afterRowIndex)//增加明细
+    {
+        var alltbDetailUsed= document.all("tbDetailUsed").rows;
+        var theFirstSelectedDetail;
+        if (afterRowIndex==null)
+        {
+            theFirstSelectedDetail=alltbDetailUsed.length-2;
+        }
+        else theFirstSelectedDetail=afterRowIndex;
+        var newRow = document.all("tbDetailPrepare").rows[0].cloneNode(true);
+        var desRow = alltbDetailUsed[theFirstSelectedDetail+1];
+        desRow.parentElement.insertBefore(newRow,desRow );
+
+    }
+
+    function delDetailProcess()//删除明细
+    {
+        var alltbDetailUsed= document.all("tbDetailUsed").rows;
+        if (confirm("确定选择正确并且要将这些明细删除")==false) return false;
+        for(var i=0;i<alltbDetailUsed.length-1;i++)
+        {
+            if (alltbDetailUsed[i].all("record_select").checked==true)
+            {
+                document.all("tbDetailUsed").deleteRow(i);
+                i=i-1;
+            }
+        }
+    }
+
+    function submitProcess()
+    {
+        document.frm.submit();
+    }
+
+
+</script>
+</body>
+</html>
