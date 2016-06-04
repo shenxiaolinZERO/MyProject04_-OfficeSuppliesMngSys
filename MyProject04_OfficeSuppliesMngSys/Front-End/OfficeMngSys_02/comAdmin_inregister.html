@@ -23,11 +23,11 @@
                     </div>
                     <div class="modal-body">
                         入库类型是：
-                        <select id="select" onchange="goUrl(this.options[this.selectedIndex])">
-                            <option value="0">请选择</option>
-                            <option value="comAdmin_in_purchase.html">采购</option>
-                            <option value="comAdmin_in_return.html">归还</option>
-                            <option value="comAdmin_in_gain.html">受赠</option>
+                        <select id="selectIn" onchange="goUrl(this.options[this.selectedIndex])">
+                            <!--<option value="0">请选择</option>-->
+                            <!--<option value="comAdmin_in_purchase.html">采购</option>-->
+                            <!--<option value="comAdmin_in_return.html">归还</option>-->
+                            <!--<option value="comAdmin_in_gain.html">受赠</option>-->
                         </select>
 
                     </div>
@@ -67,6 +67,7 @@
             location.href=obj.value;
         }
     </script>
+    <script src="js/Encapsulated-Data/comAdmin_inregister.js"></script>
 
 </body>
 </html>
