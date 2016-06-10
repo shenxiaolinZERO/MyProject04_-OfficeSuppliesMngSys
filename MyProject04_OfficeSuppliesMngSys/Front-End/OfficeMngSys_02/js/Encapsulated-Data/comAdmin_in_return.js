@@ -2,6 +2,7 @@
 
 $(document).ready(function(){
     loadReturnDate(1);
+    inStorage();
 });
 
 
@@ -38,11 +39,10 @@ function loadReturnDate(pn){
                 html1 +='<td>'+data.resultList[i].itemName+'</td>';
                 html1 +='<td>'+data.resultList[i].itemTypeName+'</td>';
                 html1 +='<td>'+data.resultList[i].measureUnitName+'</td>';
-                html1 +='<td>'+ data.resultList[i].supplierName+'</td>';
-                html1 +='<td>'+ data.resultList[i].staffName+'</td>';
                 html1 +='<td>'+ data.resultList[i].num+'</td>';
-                html1 +='<td>'+ data.resultList[i].remark+'</td>';
-                html1 +='<td><button>入库</button></td>';
+                html1 +='<td>'+ data.resultList[i].staffName+'</td>';
+                html1 +='<td>'+ data.resultList[i].time+'</td>';
+                html1 +='<td><button id="'+data.resultList[i].id+'" onclick="add(this)">入库</button></td>';
                 html1 +='</tr>';
                 $("tbody").append(html1);
             }
@@ -52,7 +52,40 @@ function loadReturnDate(pn){
 })
 }
 
-
+function add(element){
+    var idList=new Array();
+    var f={};
+    f.id=element.id;
+    idList.push(f);
+    console.log(JSON.stringify(idList));
+    //var id=element.id;
+    //idList.push(id);
+    //alert(idList[0]);
+    var x = {
+        "idList":idList,
+        "operaterId":"1",
+    };
+    console.log(x);
+    $.ajax({
+        type:"post",
+        url:"http://192.168.35.111:8080/officeSystem/InstorageCheckIn/returnInStorage.do",
+        data:JSON.stringify(x),
+        dataType:"json",
+        header:{
+            "Content-Type":"application/json",
+            "Accept":"application/json"
+        },
+        success:function(data){
+            console.log(data.message);
+            if(data.message=="success"){
+                alert("成功添加入库");
+            }
+            if(data.message=="error"){
+                alert("添加入库失败");
+            }
+        }
+    })
+}
 
 
 
@@ -60,7 +93,7 @@ function loadReturnDate(pn){
 
 //首页
 function firstPage(){
-    loadPurchaseDate(1);
+    loadReturnDate(1);
 }
 
 //尾页
@@ -103,4 +136,33 @@ function jumpPage(){
     var pn = parseInt(pn);
     loadPurchaseDate(pn);
     $("#certian-page").val();
+}
+
+
+//点击入库按钮进行归还入库
+function inStorage(){
+    $("button[name='inStorage']").on("click",function(){
+        var x = {
+            "id":"1",
+            "operaterId":"1",
+        };
+        console.log(x);
+        $.ajax({
+            type:"post",
+            url:"http://192.168.35.111:8080/officeSystem/InstorageCheckIn/returnInStorage.do",
+            data:JSON.stringify(x),
+            dataType:"json",
+            header:{
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            },
+            success:function(data){
+                console.log(data.message);
+                if(data.message=="success"){
+                    alert("成功添加入库");
+                }
+            }
+        })
+    });
+
 }
