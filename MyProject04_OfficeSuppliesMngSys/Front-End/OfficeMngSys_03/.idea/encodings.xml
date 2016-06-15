@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/js/Encapsulated-Data/comAdmin_in_gain.js" charset="GBK" />
     <file url="file://$PROJECT_DIR$/js/Encapsulated-Data/comAdmin_inregister.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/js/Encapsulated-Data/comAdmin_outregister.js" charset="GBK" />
     <file url="file://$PROJECT_DIR$/js/Encapsulated-Data/login.js" charset="GB2312" />
     <file url="file://$PROJECT_DIR$/js/waiting_assess.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/timeCounter.html" charset="UTF-8" />

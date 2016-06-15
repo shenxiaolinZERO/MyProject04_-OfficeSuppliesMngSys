@@ -1,23 +1,22 @@
 
 
 $(document).ready(function(){
-    loadReturnDate(1);
+    loadDate(1);
 });
 
 
 //加载数据
-function loadReturnDate(pn){
+function loadDate(pn){
 
     $.ajax({
     type:"post",
     dataType:"json",
-    url:"http://192.168.35.111:8080/officeSystem/InstorageCheckIn/getInstorageHome.do",
+    url:"http://192.168.35.111:8080/officeSystem/OutstorageCheckIn/getOutstorageHome.do",
 
-    data: JSON.stringify({"inStorageTypeId":"1","pageIndex":pn,"pageCount":"5"}),
+    data: JSON.stringify({"outStorageTypeId":"1","pageIndex":pn,"pageCount":"5"}),
     success:function(data){
         console.log(data);
         if(1){
-
             var page =' ';
             page +='第<input type="text" id="pageIndex" style="border:0;width: 20px;text-align: center;" class="page-current" readonly="readonly" value="'+data.pageIndex+'"/>页';
             page +='共<input type="text" id="pageSize"  style="border:0;width: 20px;text-align: center;" class="page-total" readonly="readonly"value="'+data.pageSize+'"/>页';
@@ -31,19 +30,21 @@ function loadReturnDate(pn){
             $(".page").append(page);
 
             var html1 = "";
-
+            console.log(data.resultList.length);
             for(var i=0;i<data.resultList.length;i++){
                 html1 +='<tr>';
+
                 var array=data.resultList[i];
                 html1 +='<td><input class="choose" type="checkbox"/></td>';
                 html1 +='<td>'+array.itemId+'</td>';
                 html1 +='<td>'+array.itemName+'</td>';
                 html1 +='<td>'+array.itemTypeName+'</td>';
-                html1 +='<td>'+array.measureUnitName+'</td>';
-                html1 +='<td>'+array.num+'</td>';
-                html1 +='<td>'+array.staffName+'</td>';
-                html1 +='<td>'+array.time+'</td>';
-                html1 +='<td><button id="'+array.id+'" onclick="add(this)">入库</button></td>';
+                html1 +='<td>'+array.spec+'</td>';
+                html1 +='<td>'+array.borrowNum+'</td>';
+                html1 +='<td>'+array.borrowerName+'</td>';
+                html1 +='<td>'+array.auditTime+'</td>';
+                html1 +='<td>'+array.remark+'</td>';
+                html1 +='<td><button id="'+array.id+'" onclick="out(this)">出库</button></td>';
                 html1 +='</tr>';
                 $("tbody").append(html1);
             }
@@ -138,13 +139,13 @@ function search(){
 
 //首页
 function firstPage(){
-    loadReturnDate(1);
+    loadDate(1);
 }
 
 //尾页
 function lastPage(){
   var pn = document.getElementById("pageSize").value;
-    loadPurchaseDate(pn);
+    loadDate(pn);
 }
 
 //上一页
@@ -153,11 +154,11 @@ function previousPage(){
     if(pn1==1){
         alert("这已是首页！");
         var pn = parseInt(pn1);
-        loadPurchaseDate(pn);
+        loadDate(pn);
     }else{
         var pn = parseInt(pn1);
         pn-=1;
-        loadPurchaseDate(pn);
+        loadDate(pn);
     }
 }
 
@@ -167,11 +168,11 @@ function nextPage(){
     if(pn1==pageSize){
         alert("这已是最后一页！");
         var pn = parseInt(pn1);
-        loadPurchaseDate(pn);
+        loadDate(pn);
     }else{
         var pn = parseInt(pn1);
         pn+=1;
-        loadPurchaseDate(pn);
+        loadDate(pn);
     }
 }
 
@@ -179,7 +180,7 @@ function nextPage(){
 function jumpPage(){
     var pn1 = document.getElementById("certian-page").value;
     var pn = parseInt(pn);
-    loadPurchaseDate(pn);
+    loadDate(pn);
     $("#certian-page").val();
 }
 

@@ -1,19 +1,22 @@
-
+/**
+ * Created by user10 on 2016/5/30.
+ */
 
 $(document).ready(function(){
-    loadReturnDate(1);
+    loadPurchaseDate(1);
+    //inStorage();
 });
 
 
 //加载数据
-function loadReturnDate(pn){
+function loadPurchaseDate(pn){
 
     $.ajax({
     type:"post",
     dataType:"json",
-    url:"http://192.168.35.111:8080/officeSystem/InstorageCheckIn/getInstorageHome.do",
+    url:"http://192.168.35.111:8080/officeSystem/OverTimeBorrowApply/getBorrowApplyWarningHome.do",
 
-    data: JSON.stringify({"inStorageTypeId":"1","pageIndex":pn,"pageCount":"5"}),
+    data: JSON.stringify({"pageIndex":pn,"pageCount":"5"}),
     success:function(data){
         console.log(data);
         if(1){
@@ -31,21 +34,29 @@ function loadReturnDate(pn){
             $(".page").append(page);
 
             var html1 = "";
+                for(var i=0;i<data.resultList.length;i++){
+                    html1 +='<tr>';
+                    var array=data.resultList[i];
+                    html1 +='<td><input class="choose" type="checkbox"/></td>';
+                    html1 +='<td>'+array.itemId+'</td>';
+                    html1 +='<td>'+array.itemName+'</td>';
+                    html1 +='<td>'+array.itemTypeName+'</td>';
+                    html1 +='<td>'+array.spec+'</td>';
+                    html1 +='<td>'+array.monney+'</td>';
+                    html1 +='<td>'+array.supplierName+'</td>';
+                    html1 +='<td>'+array.monney+'</td>';
+                    //库存上下限
+                    html1 +='<td>'+array.supplierName+'</td>';
+                    html1 +='<td>'+array.staffName+'</td>';
+                    //当前库存量
+                    html1 +='<td>'+array.num+'</td>';
+                    //状态
+                    html1 +='<td>'+array.remark+'</td>';
 
-            for(var i=0;i<data.resultList.length;i++){
-                html1 +='<tr>';
-                var array=data.resultList[i];
-                html1 +='<td><input class="choose" type="checkbox"/></td>';
-                html1 +='<td>'+array.itemId+'</td>';
-                html1 +='<td>'+array.itemName+'</td>';
-                html1 +='<td>'+array.itemTypeName+'</td>';
-                html1 +='<td>'+array.measureUnitName+'</td>';
-                html1 +='<td>'+array.num+'</td>';
-                html1 +='<td>'+array.staffName+'</td>';
-                html1 +='<td>'+array.time+'</td>';
-                html1 +='<td><button id="'+array.id+'" onclick="add(this)">入库</button></td>';
-                html1 +='</tr>';
-                $("tbody").append(html1);
+                    html1 +='<td><button id="'+array.id+'" onclick="prePurchase(this)">预采购</button></td>';
+
+                    html1 +='</tr>';
+                    $("tbody").append(html1);
             }
 
         }
@@ -53,8 +64,9 @@ function loadReturnDate(pn){
 })
 }
 
-//点击入库按钮进行归还入库
+//点击入库按钮进行采购入库
 function add(element){
+
     var idList=new Array();
     var f={};
     f.id=element.id;
@@ -65,12 +77,12 @@ function add(element){
     //alert(idList[0]);
     var x = {
         "idList":idList,
-        "operaterId":"1",
+        "operaterId":"1"
     };
     console.log(x);
     $.ajax({
         type:"post",
-        url:"http://192.168.35.111:8080/officeSystem/InstorageCheckIn/returnInStorage.do",
+        url:"http://192.168.35.111:8080/officeSystem/InstorageCheckIn/procurementInStorage.do",
         data:JSON.stringify(x),
         dataType:"json",
         header:{
@@ -94,7 +106,7 @@ function add(element){
 //根据搜索条件搜索
 function search(){
     var itemName=$("#itemName").val();
-    // var itemTypeId=$("input[value]).val();
+   // var itemTypeId=$("input[value]).val();
     var x = {
         "itemName":itemName,
         "itemTypeId":1,
@@ -103,7 +115,7 @@ function search(){
     console.log(x);
     $.ajax({
         type:"post",
-        url:"http://192.168.35.111:8080/officeSystem/InstorageCheckIn/getBorrowApplyByMap.do",
+        url:"http://192.168.35.111:8080/officeSystem/InstorageCheckIn/getItemProcurementByMap.do",
         data:JSON.stringify(x),
         dataType:"json",
         header:{
@@ -113,7 +125,6 @@ function search(){
         success:function(data){
             console.log(data.message);
             var html2 = "";
-
             for(var i=0;i<data.resultList.length;i++){
                 html2 +='<tr>';
                 var array=data.resultList[i];
@@ -122,9 +133,10 @@ function search(){
                 html2 +='<td>'+array.itemName+'</td>';
                 html2 +='<td>'+array.itemTypeName+'</td>';
                 html2 +='<td>'+array.measureUnitName+'</td>';
-                html2 +='<td>'+array.num+'</td>';
+                html2 +='<td>'+array.supplierName+'</td>';
                 html2 +='<td>'+array.staffName+'</td>';
-                html2 +='<td>'+array.time+'</td>';
+                html2 +='<td>'+array.num+'</td>';
+                html2 +='<td>'+array.remark+'</td>';
                 html2 +='<td><button id="'+array.id+'" onclick="add(this)">入库</button></td>';
                 html2 +='</tr>';
                 $("tbody").append(html2);
@@ -134,11 +146,13 @@ function search(){
 }
 
 
+
+
 //分页的各种方法
 
 //首页
 function firstPage(){
-    loadReturnDate(1);
+    loadPurchaseDate(1);
 }
 
 //尾页
@@ -182,4 +196,5 @@ function jumpPage(){
     loadPurchaseDate(pn);
     $("#certian-page").val();
 }
+
 
