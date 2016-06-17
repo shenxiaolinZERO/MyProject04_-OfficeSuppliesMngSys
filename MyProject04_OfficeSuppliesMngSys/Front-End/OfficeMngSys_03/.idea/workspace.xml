@@ -78,7 +78,7 @@
       <file leaf-file-name="comAdmin_out_claim.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/Encapsulated-Data/comAdmin_out_claim.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.88235295">
+            <state vertical-scroll-proportion="0.41095892">
               <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
               <folding>
                 <marker date="1465996246929" expanded="true" signature="1161:1191" placeholder="..." />
@@ -235,9 +235,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="487" />
-    <option name="y" value="446" />
+    <option name="y" value="56" />
     <option name="width" value="1263" />
-    <option name="height" value="535" />
+    <option name="height" value="925" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -415,7 +415,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="487" y="446" width="1263" height="535" extended-state="1" />
+    <frame x="487" y="56" width="1263" height="925" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14309075" sideWeight="0.49358973" order="0" side_tool="false" content_ui="combo" />
@@ -869,21 +869,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/Encapsulated-Data/comAdmin_out_claim.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41095892">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+          <folding>
+            <marker date="1465996246929" expanded="true" signature="1161:1191" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/comAdmin_inventorywarning.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4152249">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/Encapsulated-Data/comAdmin_out_claim.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.88235295">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-          <folding>
-            <marker date="1465996246929" expanded="true" signature="1161:1191" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
