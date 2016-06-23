@@ -10,7 +10,7 @@ $(function(){
                 saveForm();
             }
         });
-        _addFun();
+        ensureValid();
     })
 });
 
@@ -60,15 +60,90 @@ function saveForm(){
         data: JSON.stringify(x),
         success: function (data) {
             alert("成功提交");
-            $('#ruku')[0].reset();
-            $('#addzichanruku').modal('hide');
-            Stocking();
-            funResult = eval(data);
-            console.log("成功将入库数据传入后台");
+            $('#form-submit')[0].reset();
+            console.log("成功添加供应商信息");
 
         },
         error: function () {
-            console.log("将入库数据传入后台失败");
+            console.log("操作失败");
+        }
+
+    })
+}
+
+function ensureValid(){
+    $("#form-submit").validate({
+        rules:{
+            supplierId: {
+                required:true
+           },
+            fullName:{
+                required:true
+            },
+            shortName:{
+                required:true
+            },
+
+            supplierTypeId: {
+                required:true
+            },
+            linkman:{
+                required:true
+            },
+            cellPhoneNumber:{
+                required:true
+            },
+
+            phone:{
+                required:true
+            },
+            fax:{
+                required:true
+            },
+            postcode:{
+                required:true
+            },
+            address:{
+                required:true
+            }
+            //remark: {
+            //    required:true
+            //}
+
+        },
+        messages:{
+            supplierId: {
+                required:"供应商编号不能为空"
+            },
+            fullName:{
+                required:"供应商全称不能为空"
+            },
+            shortName:{
+                required:"供应商简称不能为空"
+            },
+
+            supplierTypeId: {
+                required:"供应商类型ID不能为空"
+            },
+            linkman:{
+                required:"联系人不能为空"
+            },
+            cellPhoneNumber:{
+                required:"手机号码不能为空"
+            },
+
+            phone:{
+                required:"联系电话不能为空"
+            },
+            fax:{
+                required:"传真不能为空"
+            },
+            postcode:{
+                required:"邮编不能为空"
+            },
+            address:{
+                required:"地址不能为空"
+            }
         }
 
     })

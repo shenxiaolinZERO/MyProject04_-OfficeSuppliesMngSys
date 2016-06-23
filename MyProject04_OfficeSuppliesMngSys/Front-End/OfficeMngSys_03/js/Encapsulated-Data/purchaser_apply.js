@@ -26,6 +26,7 @@ function loadDate(pn){
         "applyEndTime":applyEndTime
 
      };
+    console.log(x);
     $.ajax({
         type:"post",
         dataType:"json",

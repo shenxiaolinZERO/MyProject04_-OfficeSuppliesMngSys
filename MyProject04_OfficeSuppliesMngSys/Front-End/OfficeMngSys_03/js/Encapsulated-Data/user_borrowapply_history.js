@@ -4,47 +4,33 @@ $(document).ready(function(){
     loadDate(1);
 
 });
-//接受json的格式
-//"pageIndex": "当前请求页默认1",
-//    "pageCount": "页大小",
-//    "timeSort": "采购时间排序",  //这个要怎么取得？
-//    "itemProcurement": {
-//        "supplierId": "供应商id",
-//        "staffId": "采购人员id",
-//        "itemTypeId": "物品分类id",
-//        "itemName": "物品名称"
-//      }
 
 
 //加载数据
 function loadDate(pn){
-
-    var data={};
-    data.pageIndex=pn;
-    data.pageCount="5";
-    data.endTimeSort="1";
-    data.itemProcurement={};
-    data.itemProcurement.supplierId="-1";
-    data.itemProcurement.staffId="-1";
-    data.itemProcurement.itemTypeId="-1";
-    data.itemProcurement.itemName="-1";
+    var pageIndex=pn;
+    var pageCount="5";
+    var borrower="-1";
+    //var itemId="-1";
+    //var itemTypeId="-1";
+    //var itemName="-1";
 
 
-    //var  x = {
-    //    "pageIndex":pn,
-    //    "pageCount":pageCount,
-    //    "itemTypeId":itemTypeId,
-    //    "itemName":itemName,
-    //    "itemId":itemId,
-    //    "applyStartTime":applyStartTime,
-    //    "applyEndTime":applyEndTime
-    //
-    // };
+    var  x = {
+        "pageIndex":pn,
+        "pageCount":pageCount,
+        "borrower":borrower
+        //"itemId":itemId,
+        //"itemName":itemName,
+        //"itemTypeId":itemTypeId
+
+     };
+    console.log(x);
     $.ajax({
         type:"post",
         dataType:"json",
-        url:"http://192.168.35.111:8080/officeSystem/ItemProcurement/getInStorageItemProcurement.do",
-        data: JSON.stringify(data),
+        url:"http://192.168.35.111:8080/officeSystem/BorrowApply/userHistoryBorrowApply.do",
+        data: JSON.stringify(x),
         success:function(data){
 
             console.log(data);
@@ -64,15 +50,14 @@ function loadDate(pn){
                 for(var i=0;i<data.resultList.length;i++){
                     html1 +='<tr>';
                     var array=data.resultList[i];
-                    //以下yes
+                    //!~@#$%^&
                     html1 +='<td>'+array.itemId+'</td>';
                     html1 +='<td>'+array.itemName+'</td>';
                     html1 +='<td>'+array.itemTypeName+'</td>';
                     html1 +='<td>'+array.spec+'</td>';
-                    html1 +='<td>'+array.num+'</td>';
-                    html1 +='<td>'+array.time+'</td>';
-                    html1 +='<td>'+array.staffName+'</td>';
-                    html1 +='<td>'+array.isInStorage+'</td>';
+                    html1 +='<td>'+array.inventory+'</td>';
+
+                    html1 +='<td><button id="'+array.id+'" onclick="confirmPre(this)">申请</button></td>';
                     html1 +='</tr>';
                 }
                 $("tbody").append(html1);
@@ -82,6 +67,65 @@ function loadDate(pn){
 })
 }
 
+//确定预采购
+  function confirmPre(element){
+        var applyId=element.id;
+        var x = {
+            "applyId":applyId,
+            "staffId":"1",
+        };
+        console.log(x);
+        $.ajax({
+            type:"post",
+            url:"http://192.168.35.111:8080/officeSystem/ItemProcurement/confirmPreItemProcurement.do",
+            data:JSON.stringify(x),
+            dataType:"json",
+            header:{
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            },
+            success:function(data){
+                console.log(data.message);
+                if(data.message=="success"){
+                    alert("确定预采购成功");
+                }
+                if(data.message=="error"){
+                    alert("确定预采购失败");
+                }
+            }
+        })
+    }
+//不通过
+    function notPass(element){
+
+        var applyId=element.id;
+        var reason="no";
+        var x = {
+            "applyId":applyId,
+            "staffId":"1",
+            "reason":reason
+        };
+        console.log(x);
+        $.ajax({
+            type:"post",
+            url:"http://192.168.35.111:8080/officeSystem/ItemProcurement/notPassItemProcurementApply.do",
+            data:JSON.stringify(x),
+            dataType:"json",
+            header:{
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            },
+            success:function(data){
+                console.log(data.message);
+                if(data.message=="success"){
+                    alert("操作成功");
+                }
+                if(data.message=="error"){
+                    alert("操作失败");
+                }
+            }
+        })
+    }
 
 
 //分页的各种方法

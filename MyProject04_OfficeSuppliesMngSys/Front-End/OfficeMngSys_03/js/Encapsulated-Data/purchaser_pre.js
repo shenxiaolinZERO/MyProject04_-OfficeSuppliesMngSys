@@ -17,6 +17,10 @@ function loadDate(pn){
     var itemId="-1";
     var preTimeSort="1";
 
+    var data={};
+    data.item={};
+    data.item.itemName=applyId;
+
     var  x = {
         "pageIndex":pn,
         "pageCount":pageCount,
@@ -73,9 +77,10 @@ function loadDate(pn){
 //确定采购
   function Pre(element){
         var applyId=element.id;
+
         var x = {
             "applyId":applyId,
-            "staffId":"1",
+            "staffId":"1"
         };
         console.log(x);
         $.ajax({
